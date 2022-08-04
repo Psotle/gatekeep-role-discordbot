@@ -2,6 +2,7 @@ package io.github.psotle.gatekeeprolediscordbot;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -68,19 +69,22 @@ public class Main {
             .login()
             .join();
 
-    List<Role> allTargetRoles = api.getRolesByNameIgnoreCase(targetRoleName).stream().toList();
+    List<Role> allTargetRoles =
+        api.getRolesByNameIgnoreCase(targetRoleName).stream().collect(Collectors.toList());
 
     if (allTargetRoles.isEmpty()) {
       throw new RuntimeException("Unable to find target role name");
     }
 
-    List<Role> allAccessRoles = api.getRolesByNameIgnoreCase(accessRoleName).stream().toList();
+    List<Role> allAccessRoles =
+        api.getRolesByNameIgnoreCase(accessRoleName).stream().collect(Collectors.toList());
 
     if (allAccessRoles.isEmpty()) {
       throw new RuntimeException("Unable to find access role name");
     }
 
-    List<Role> allGatekeepRoles = api.getRolesByNameIgnoreCase(gatekeepRoleName).stream().toList();
+    List<Role> allGatekeepRoles =
+        api.getRolesByNameIgnoreCase(gatekeepRoleName).stream().collect(Collectors.toList());
 
     if (allGatekeepRoles.isEmpty()) {
       throw new RuntimeException("Unable to find gatekeep role name");
