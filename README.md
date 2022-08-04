@@ -1,2 +1,9 @@
-# Discord-Twitch-Security-Bot
+# Gatekeep-Role-DiscordBot
+
+## Intro
+
+## Setup
+
+## Usage
+
 
