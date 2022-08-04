@@ -18,5 +18,13 @@ jobs:
           arguments: clean build shadowJar
       - uses: actions/upload-artifact@v3
         with:
-          name: Package
-          path: build/libs
+          name: jar
+          path: build/libs/gatekeep-role-discordbot.jar
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          push: false
+          tags: user/app:latest
