@@ -135,7 +135,7 @@ public class Main {
                 allAccessRoles.stream()
                     .filter(fRole -> fRole.getServer().getId() == eventServer.getId())
                     .findFirst();
-            if (accessRoleForServer.isEmpty()) {
+            if (!accessRoleForServer.isPresent()) {
               logger.warn(
                   "Unable to find matching role for server => {}:{} ",
                   eventServer.getId(),
@@ -157,7 +157,7 @@ public class Main {
                 allAccessRoles.stream()
                     .filter(fRole -> fRole.getServer().getId() == eventServer.getId())
                     .findFirst();
-            if (accessRoleForServer.isEmpty()) {
+            if (!accessRoleForServer.isPresent()) {
               logger.warn(
                   "Unable to find matching role for server => {}:{} ",
                   eventServer.getId(),
@@ -183,7 +183,7 @@ public class Main {
         subscriberAccessRoles.stream()
             .filter(fRole -> fRole.getServer().getId() == eventServer.getId())
             .findFirst();
-    if (accessRoleForServer.isEmpty()) {
+    if (!accessRoleForServer.isPresent()) {
       logger.warn(
           "Unable to find matching role for server => {}:{} ",
           eventServer.getId(),
