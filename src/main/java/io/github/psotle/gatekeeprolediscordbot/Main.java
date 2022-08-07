@@ -146,9 +146,8 @@ public class Main {
             Role removeRole = accessRoleForServer.get();
             String message =
                 "Removing access role in response to target role removal" + removeRole.toString();
+            eventServer.removeRoleFromUser(user, removeRole, message).join();
             logger.info(message);
-            ServerUpdater serverUpdate = new ServerUpdater(event.getServer());
-            serverUpdate.removeRoleFromUser(user, removeRole).update();
             return;
           }
 
@@ -168,9 +167,8 @@ public class Main {
             Role removeRole = accessRoleForServer.get();
             String message =
                 "Removing access role in response to gatekeep role removal" + removeRole.toString();
+            eventServer.removeRoleFromUser(user, removeRole, message).join();
             logger.info(message);
-            ServerUpdater serverUpdate = new ServerUpdater(event.getServer());
-            serverUpdate.removeRoleFromUser(user, removeRole).update();
           }
         });
     logger.info("GatekeepRoleDiscordBot started...");
@@ -195,9 +193,8 @@ public class Main {
     String message =
         "Adding subscriber access role in response to " + reason + " => " + addRole.toString();
 
+    eventServer.addRoleToUser(user, addRole, message).join();
     logger.info(message);
-    ServerUpdater serverUpdate = new ServerUpdater(event.getServer());
-    serverUpdate.addRoleToUser(user, addRole).update();
   }
 
   public static void main(String[] args) {
