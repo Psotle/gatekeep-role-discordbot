@@ -11,7 +11,6 @@ import org.javacord.api.DiscordApiBuilder;
 import org.javacord.api.entity.intent.Intent;
 import org.javacord.api.entity.permission.Role;
 import org.javacord.api.entity.server.Server;
-import org.javacord.api.entity.server.ServerUpdater;
 import org.javacord.api.entity.user.User;
 import org.javacord.api.event.server.role.UserRoleEvent;
 
