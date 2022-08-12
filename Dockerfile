@@ -1,9 +1,9 @@
-FROM gradle:7.5-jdk8-alpine AS build
+FROM gradle:7.5-jdk17-alpine AS build
 COPY --chown=gradle:gradle . /home/gradle/src
 WORKDIR /home/gradle/src
 RUN gradle build --no-daemon 
 
-FROM eclipse-temurin:8-jre-alpine
+FROM eclipse-temurin:17-jre-alpine
 ARG JAR_FILE=build/libs/gatekeep-role-discordbot.jar
 
 RUN mkdir /app
