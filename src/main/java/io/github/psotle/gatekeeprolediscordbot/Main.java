@@ -36,11 +36,11 @@ public class Main {
 
   private static final String BOT_TOKEN_ENV = "BOT_TOKEN";
 
-  private static final String TARGET_ROLE_ENV = "TWITCH_ROLE";
+  private static final String INTEGRATION_ROLE_ENV = "INTEGRATION_ROLE";
   private static final String ACCESS_ROLE_ENV = "ACCESS_ROLE";
   private static final String GATEKEEP_ROLE_ENV = "GATEKEEP_ROLE";
 
-  private static final String DEFAULT_TARGET_ROLE = "twitch subscriber";
+  private static final String DEFAULT_INTEGRATION_ROLE = "twitch subscriber";
   private static final String DEFAULT_ACCESS_ROLE = "subscriber access";
   private static final String DEFAULT_GATEKEEP_ROLE = "follower";
 
@@ -52,8 +52,8 @@ public class Main {
         Optional.ofNullable(System.getenv(BOT_TOKEN_ENV))
             .orElseThrow(() -> new RuntimeException("No BOT_TOKEN set"));
 
-    final String targetRoleName =
-        Optional.ofNullable(System.getenv(TARGET_ROLE_ENV)).orElse(DEFAULT_TARGET_ROLE);
+    final String integrationRoleName =
+        Optional.ofNullable(System.getenv(INTEGRATION_ROLE_ENV)).orElse(DEFAULT_INTEGRATION_ROLE);
 
     final String accessRoleName =
         Optional.ofNullable(System.getenv(ACCESS_ROLE_ENV)).orElse(DEFAULT_ACCESS_ROLE);
@@ -68,11 +68,11 @@ public class Main {
             .login()
             .join();
 
-    List<Role> allTargetRoles =
-        api.getRolesByNameIgnoreCase(targetRoleName).stream().collect(Collectors.toList());
+    List<Role> allIntegrationRoles =
+        api.getRolesByNameIgnoreCase(integrationRoleName).stream().collect(Collectors.toList());
 
-    if (allTargetRoles.isEmpty()) {
-      throw new RuntimeException("Unable to find target role name");
+    if (allIntegrationRoles.isEmpty()) {
+      throw new RuntimeException("Unable to find integration role name");
     }
 
     List<Role> allAccessRoles =
@@ -96,8 +96,8 @@ public class Main {
           User user = event.getUser();
           Server eventServer = event.getServer();
 
-          // If we're adding the target role.
-          if (StringUtils.equalsIgnoreCase(targetRoleName, role.getName())) {
+          // If we're adding the integration role.
+          if (StringUtils.equalsIgnoreCase(integrationRoleName, role.getName())) {
             List<Role> otherRoles = user.getRoles(eventServer);
             if (!otherRoles.stream()
                 .anyMatch(r -> StringUtils.equalsIgnoreCase(gatekeepRoleName, r.getName()))) {
@@ -105,7 +105,7 @@ public class Main {
               return;
             }
 
-            addRoleToUser(allAccessRoles, event, "target role added");
+            addRoleToUser(allAccessRoles, event, "integration role added");
             return;
           }
 
@@ -113,8 +113,8 @@ public class Main {
           if (StringUtils.equalsIgnoreCase(gatekeepRoleName, role.getName())) {
             List<Role> otherRoles = user.getRoles(eventServer);
             if (!otherRoles.stream()
-                .anyMatch(r -> StringUtils.equalsIgnoreCase(targetRoleName, r.getName()))) {
-              logger.warn("Unable to give access... Does not have target role");
+                .anyMatch(r -> StringUtils.equalsIgnoreCase(integrationRoleName, r.getName()))) {
+              logger.warn("Unable to give access... Does not have integration role");
               return;
             }
 
@@ -129,7 +129,7 @@ public class Main {
           User user = event.getUser();
           Server eventServer = event.getServer();
 
-          if (StringUtils.equalsIgnoreCase(targetRoleName, role.getName())) {
+          if (StringUtils.equalsIgnoreCase(integrationRoleName, role.getName())) {
             Optional<Role> accessRoleForServer =
                 allAccessRoles.stream()
                     .filter(fRole -> fRole.getServer().getId() == eventServer.getId())
@@ -144,7 +144,8 @@ public class Main {
 
             Role removeRole = accessRoleForServer.get();
             String message =
-                "Removing access role in response to target role removal" + removeRole.toString();
+                "Removing access role in response to integration role removal"
+                    + removeRole.toString();
             eventServer.removeRoleFromUser(user, removeRole, message).join();
             logger.info(message);
             return;
