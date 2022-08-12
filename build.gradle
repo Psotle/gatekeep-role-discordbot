@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'io.github.psotle'
-version = '1.0.0'
+version = rootProject.file('version.txt').text.trim()
 sourceCompatibility = '17'
 
 repositories {
@@ -27,8 +27,9 @@ application {
 
 spotless {
 	java {
-		googleJavaFormat()	
+		googleJavaFormat()
 	}
+	
 }
 
 shadowJar{

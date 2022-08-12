@@ -44,7 +44,7 @@ public class Main {
   private static final String DEFAULT_ACCESS_ROLE = "subscriber access";
   private static final String DEFAULT_GATEKEEP_ROLE = "follower";
 
-  private Logger logger = LogManager.getLogger();
+  private Logger logger = LogManager.getLogger(getClass());
 
   public void mainTask() {
     // Handle ENV vars
