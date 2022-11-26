@@ -2,22 +2,26 @@ plugins {
 	id 'application'
 	id 'java'
 	id 'com.github.johnrengelman.shadow' version '7.1.2'
-	id "com.diffplug.spotless" version "6.9.0"
+	id "com.diffplug.spotless" version "6.12.0"
 }
 
-group = 'io.github.psotle'
-version = rootProject.file('version.txt').text.trim()
-sourceCompatibility = '17'
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+	group = 'io.github.psotle'
+	version = rootProject.file('version.txt').text.trim()
+}
 
 repositories {
 	mavenCentral()
 }
 
 dependencies {
-	implementation 'org.apache.logging.log4j:log4j-api:2.18.0'
-	implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.18.0'
-    implementation 'org.apache.logging.log4j:log4j-core:2.18.0'
-	implementation 'org.javacord:javacord:3.5.0'  	
+	implementation 'org.apache.logging.log4j:log4j-api:2.19.0'
+	implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.19.0'
+    implementation 'org.apache.logging.log4j:log4j-core:2.19.0'
+	implementation 'org.javacord:javacord:3.7.0'  	
 	implementation 'org.apache.commons:commons-lang3:3.12.0' 
 }
 
@@ -29,13 +33,11 @@ spotless {
 	java {
 		googleJavaFormat()
 	}
-	
 }
 
 shadowJar{
 	archiveBaseName.set('gatekeep-role-discordbot')
 	archiveClassifier.set('')
-	archiveVersion.set('')
 }
 
 tasks.named('test') {
