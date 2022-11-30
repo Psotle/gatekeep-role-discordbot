@@ -6,11 +6,21 @@ plugins {
 }
 
 java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
-    }
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
 	group = 'io.github.psotle'
 	version = rootProject.file('version.txt').text.trim()
+}
+
+spotless {
+	java {
+		googleJavaFormat('1.15.0')
+	}
+	groovyGradle {
+		target '*.gradle'
+		greclipse()
+	}
 }
 
 repositories {
@@ -20,19 +30,13 @@ repositories {
 dependencies {
 	implementation 'org.apache.logging.log4j:log4j-api:2.19.0'
 	implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.19.0'
-    implementation 'org.apache.logging.log4j:log4j-core:2.19.0'
-	implementation 'org.javacord:javacord:3.7.0'  	
-	implementation 'org.apache.commons:commons-lang3:3.12.0' 
+	implementation 'org.apache.logging.log4j:log4j-core:2.19.0'
+	implementation 'org.javacord:javacord:3.7.0'
+	implementation 'org.apache.commons:commons-lang3:3.12.0'
 }
 
 application {
-    mainClass = 'io.github.psotle.gatekeeprolediscordbot.Main'
-}
-
-spotless {
-	java {
-		googleJavaFormat()
-	}
+	mainClass = 'io.github.psotle.gatekeeprolediscordbot.Main'
 }
 
 shadowJar{
