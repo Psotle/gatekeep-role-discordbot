@@ -1,41 +1,44 @@
 plugins {
 	id 'application'
 	id 'java'
-	id 'com.github.johnrengelman.shadow' version '7.1.2'
-	id "com.diffplug.spotless" version "6.9.0"
+	id 'org.springframework.boot' version '3.0.3'
+	id 'io.spring.dependency-management' version '1.1.0'
+	id "com.diffplug.spotless" version "6.15.0"
 }
 
-group = 'io.github.psotle'
-version = rootProject.file('version.txt').text.trim()
-sourceCompatibility = '17'
-
-repositories {
-	mavenCentral()
-}
-
-dependencies {
-	implementation 'org.apache.logging.log4j:log4j-api:2.18.0'
-	implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.18.0'
-    implementation 'org.apache.logging.log4j:log4j-core:2.18.0'
-	implementation 'org.javacord:javacord:3.5.0'  	
-	implementation 'org.apache.commons:commons-lang3:3.12.0' 
-}
-
-application {
-    mainClass = 'io.github.psotle.gatekeeprolediscordbot.Main'
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+	group = 'io.github.psotle'
+	version = rootProject.file('version.txt').text.trim()
 }
 
 spotless {
 	java {
 		googleJavaFormat()
 	}
-	
+	groovyGradle {
+		target '*.gradle'
+		greclipse()
+	}
 }
 
-shadowJar{
-	archiveBaseName.set('gatekeep-role-discordbot')
-	archiveClassifier.set('')
-	archiveVersion.set('')
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.apache.logging.log4j:log4j-api:2.19.0'
+	implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.19.0'
+	implementation 'org.apache.logging.log4j:log4j-core:2.19.0'
+	implementation 'org.javacord:javacord:3.7.0'
+	implementation 'org.apache.commons:commons-lang3:3.12.0'
+}
+
+application {
+	mainClass = 'io.github.psotle.gatekeeprolediscordbot.Main'
 }
 
 tasks.named('test') {

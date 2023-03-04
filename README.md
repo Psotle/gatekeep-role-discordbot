@@ -28,7 +28,7 @@ Build with gradle
 
 Output in
 	
-	build/libs/gatekeep-role-discordbot.jar
+	build/libs/gatekeep-role-discordbot-0.2.0.jar
 
 ## Server configuration
 
@@ -86,11 +86,10 @@ Start the application with JDK:
 	export ACCESS_ROLE="access role
 	export GATEKEEP_ROLE="follower"
 
-	java -jar gatekeep-role-discordbot.jar
+	java -jar gatekeep-role-discordbot-0.2.0.jar
 
 ### Docker
 
 Run up with Docker:
 
 	docker run psotle/gatekeep-role-discordbot:latest -e BOT_TOKEN=<DiscordBotToken> -e INTEGRATION_ROLE=TargetRole\ Name -e ACCESS_ROLE=Access\ Role\ Name -e GATEKEEP_ROLE=gatekeep\ role\ name
-
