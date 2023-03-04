@@ -78,7 +78,11 @@ public class Main {
     Role addRole = accessRoleForServer.get();
     String message =
         "Adding subscriber access role in response to %s => [%s][%s] %s "
-            .formatted("Missing access role", member.getDisplayName(server), member.getName(), server.getName());
+            .formatted(
+                "Missing access role",
+                member.getDisplayName(server),
+                member.getName(),
+                server.getName());
 
     server.addRoleToUser(member, addRole);
     logger.info(message);
@@ -97,7 +101,11 @@ public class Main {
     Role removeRole = accessRoleForServer.get();
     String message =
         "Remove subscriber access role in response to %s => [%s][%s] %s"
-            .formatted("No longer has both gatekeep and integration role", member.getDisplayName(server), member.getName(), server.getName());
+            .formatted(
+                "No longer has both gatekeep and integration role",
+                member.getDisplayName(server),
+                member.getName(),
+                server.getName());
 
     server.removeRoleFromUser(member, removeRole);
     logger.info(message);
@@ -195,13 +203,12 @@ public class Main {
 
           List<Role> memberRoles = user.getRoles(eventServer);
           if (memberRoles.contains(accessRole)) {
-              logger.debug("already has access role");
-              return;
+            logger.debug("already has access role");
+            return;
           }
           if (addedRole.equals(integrationRole)) {
             if (memberRoles.stream()
-                .noneMatch(r -> StringUtils.equalsIgnoreCase(gatekeepRoleName, r.getName()))
-            ) {
+                .noneMatch(r -> StringUtils.equalsIgnoreCase(gatekeepRoleName, r.getName()))) {
               logger.warn("Unable to give access... Does not have gatekeep role");
               return;
             }
@@ -313,7 +320,11 @@ public class Main {
 
         // if we have all three roles
         if (hasIntegration && hasGatekeep && hasAccess) {
-          logger.info("Member [{}][{}] of Server {} already has all three roles", member.getDisplayName(server), member.getName(), server);
+          logger.info(
+              "Member [{}][{}] of Server {} already has all three roles",
+              member.getDisplayName(server),
+              member.getName(),
+              server);
           continue;
         }
         // If we need to add the access role

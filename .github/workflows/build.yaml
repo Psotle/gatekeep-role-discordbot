@@ -17,12 +17,12 @@ jobs:
       - name: Build with Gradle
         uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
         with:
-          arguments: clean build shadowJar
+          arguments: clean build
       - uses: actions/upload-artifact@v3
         if: github.ref == 'refs/heads/main'
         with:
           name: jar
-          path: build/libs/gatekeep-role-discordbot.jar
+          path: build/libs/gatekeep-role-discordbot-0.2.0.jar
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         if: github.ref == 'refs/heads/main'
