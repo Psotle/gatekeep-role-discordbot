@@ -24,7 +24,7 @@ Clone repo
 
 Build with gradle
 
-	`./gradlew.bat shadowJar`
+	`./gradlew.bat clean build`
 
 Output in
 	
