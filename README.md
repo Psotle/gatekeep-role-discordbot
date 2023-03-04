@@ -93,3 +93,10 @@ Start the application with JDK:
 Run up with Docker:
 
 	docker run psotle/gatekeep-role-discordbot:latest -e BOT_TOKEN=<DiscordBotToken> -e INTEGRATION_ROLE=TargetRole\ Name -e ACCESS_ROLE=Access\ Role\ Name -e GATEKEEP_ROLE=gatekeep\ role\ name
+
+
+## TODO
+
+* Flag to disable autoreconcilation on startup / "Dry Run" testing mode.
+* Handle disconnects more gracefully (Re-reconcile on disconnects / abandon processing when disconnect)
+* Unit tests
